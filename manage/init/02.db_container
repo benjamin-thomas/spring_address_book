@@ -42,7 +42,7 @@ end
 system('docker-compose', 'down')
 system("docker volume rm #{PROJECT_NAME}_db-data")
 
-# Creates my-budget_db_1
+# Creates "#{PROJECT_NAME}_db_1"
 if !system('docker-compose', 'up', '-d', 'db')
   abort('Could not start db container!')
 end
