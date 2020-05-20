@@ -2,6 +2,7 @@ package invalid.bt.spring_adress_book.repositories;
 
 import invalid.bt.spring_adress_book.config.TestProfileResolver;
 import invalid.bt.spring_adress_book.entities.Country;
+import invalid.bt.spring_adress_book.utils.DataLoader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,8 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +63,7 @@ class CountryRepositoryTest {
     @Test
     void insertion() throws IOException, SQLException {
         assertThat(countryRepository.count()).isEqualTo(0);
-        execSql("starter_data.sql");
+        new DataLoader(jdbcTemplate).init();
         assertThat(countryRepository.count()).isEqualTo(2);
         countryRepository.save(
                 new Country("Italy", "it")
@@ -75,14 +74,6 @@ class CountryRepositoryTest {
         assertThat(spain.getName()).isEqualTo("Italy");
     }
 
-    // Workaround for @Sql doing unwanted line parsing (problematic for starter_data.sql)
-    private void execSql(String filename) throws IOException {
-        //@Sql({"file:src/test/resources/starter_data.sql"}) <-- this does not work properly
-        final Path path = Path.of("./src/test/resources/", filename);
-        final String content = Files.readString(path);
-        jdbcTemplate.execute(content);
-        return;
-    }
 
     @Test
     void injectedComponentsAreNotNull() {
