@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Need this to clean the local dev/test db when iterating on the design for instance
+
+function die() {
+  echo $1
+  exit 1
+}
+
+source ~/.env/$(basename $(pwd))/db.env
+
+case $1 in
+  dev)
+    DATABASE=$DEV_DBNAME
+    ;;
+  test)
+    DATABASE=$TEST_DBNAME
+    ;;
+  *)
+    die "Must provide target env as first param: [dev, test]"
+    ;;
+esac
+
+shift 1
+
+set -x
+./mvnw \
+  -Dflyway.user=$ADMIN_USER \
+  -Dflyway.password=$ADMIN_PASSWORD \
+  -Dflyway.url=jdbc:postgresql://localhost:5432/$DATABASE \
+  flyway:$@

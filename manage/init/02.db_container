@@ -1,0 +1,96 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'dotenv'
+rescue LoadError
+  abort('apt-get install ruby-dotenv')
+end
+
+begin
+  require 'colored'
+rescue LoadError
+  abort('apt-get install ruby-colored')
+end
+
+PROJECT_NAME = File.basename(Dir.pwd)
+ENV_DIR = File.expand_path(File.join('~/.env', PROJECT_NAME))
+Dotenv.load(File.join(ENV_DIR, 'db.env'))
+
+def psql(cmd, dbname = nil, abort_on_fail = true)
+  args = [
+    'docker-compose', 'exec',
+    '--env', 'PGUSER=postgres',
+    '--env', "PGPASSWORD=#{ENV.fetch('POSTGRES_PASSWORD')}",
+    'db',
+    'psql', '--echo-all', '-c', cmd,
+  ]
+  if dbname
+    args += ['-d', dbname]
+  end
+  if system(*args)
+    return :OK
+  end
+
+  if abort_on_fail
+    abort("Command failed: #{args}".red.bold)
+  end
+
+  :ERROR
+end
+
+# Remove previous
+system('docker-compose', 'down')
+system("docker volume rm #{PROJECT_NAME}_db-data")
+
+# Creates my-budget_db_1
+if !system('docker-compose', 'up', '-d', 'db')
+  abort('Could not start db container!')
+end
+puts("\e[1;33mWill now setup pg, similar to scaleway's managed database service\e[0;m")
+
+while psql("SELECT 1", nil, false) == :ERROR
+  puts("Waiting for container start...")
+  sleep 1
+end
+
+# NOTE:
+# Managed database services like Scaleway or even Heroku allow CREATE EXTENSION
+# as a non superuser.
+# Standard postgres does not allow this, hence I must load all extensions here
+# (I'm running as the postgres user here, just once), prior to running them
+# with IF NOT EXIST in the migrations. That way permissions error won't be
+# triggerd while keeping CREATE EXTENSION in the migration file, still.
+# Check if superuser with: select usesuper from pg_user where usename = CURRENT_USER;
+# NOTE:
+# The extension is related to the database so it must be created within the
+# context of the development, then test databases
+['DEV_DBNAME', 'TEST_DBNAME'].each do |env_var|
+  dbname = ENV.fetch(env_var)
+  puts("Creating: #{dbname}".yellow.bold)
+  psql("CREATE DATABASE #{dbname}")
+
+  psql('CREATE EXTENSION pgcrypto', dbname) # create fake data, dev/test only
+  psql('CREATE EXTENSION tablefunc', dbname) # create fake data, dev/test only
+end
+
+psql(%Q[CREATE ROLE #{ENV.fetch('ADMIN_USER')} WITH CREATEROLE CREATEDB LOGIN ENCRYPTED PASSWORD '#{ENV.fetch("ADMIN_PASSWORD")}'; -- Non superuser that would be provided in a managed db production env])
+
+psql("CREATE ROLE #{ENV.fetch('APP_USER')} LOGIN ENCRYPTED PASSWORD '#{ENV.fetch('APP_PASSWORD')}' NOINHERIT; -- The app's password")
+
+puts("Container should be started now, it's time to load flyway scripts".yellow.bold)
+puts(`docker-compose ps`)
+
+puts("Listing current vars")
+cmd = "tail -n+1 ~/.env/#{File.basename(Dir.pwd)}/*"
+puts(cmd)
+output = `#{cmd}`
+puts(output)
+puts("---")
+
+# Better to do this, to prevent returning previously loaded env var
+new_password = output.lines.grep(/^POSTGRES_PASSWORD/).first.strip.split("=").last
+
+puts("Now use:")
+puts("--------")
+puts("./manage/flyway dev migrate")
+puts("./manage/db_console")

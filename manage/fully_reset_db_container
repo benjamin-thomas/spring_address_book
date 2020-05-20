@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+./manage/init/01.env_vars redo
+./manage/init/02.db_container

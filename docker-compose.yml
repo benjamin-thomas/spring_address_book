@@ -1,0 +1,18 @@
+# https://docs.docker.com/compose/compose-file/#service-configuration-reference
+# But with dedicated db volume for permission issues otherwise
+version: '3.7'
+services:
+
+  db:
+    # https://hub.docker.com/_/postgres
+    image: postgres:10.4 # 11.5 -> 10.4??
+    restart: always
+    env_file:
+      - ~/.env/spring_adress_book/db.env
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

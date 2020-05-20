@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source ~/.env/$(basename $(pwd))/db.env
+
+case $1 in
+  admin)
+    DATABASE_URL=$ADMIN_DATABASE_URL_DEVELOPMENT_LOCAL
+    ;;
+  app)
+    DATABASE_URL=$DATABASE_URL_DEVELOPMENT_LOCAL
+    ;;
+  *)
+    echo "Must give one of: [admin, app]"
+    exit 1
+    ;;
+esac
+
+set -x
+psql $DATABASE_URL
