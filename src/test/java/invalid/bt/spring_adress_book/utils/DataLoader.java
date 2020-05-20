@@ -20,7 +20,6 @@ public class DataLoader {
 
     // Workaround for @Sql doing unwanted line parsing (problematic for starter_data.sql)
     private void execSql(String filename) throws IOException {
-        //@Sql({"file:src/test/resources/starter_data.sql"}) <-- this does not work properly
         final Path path = Path.of("./src/test/resources/", filename);
         final String content = Files.readString(path);
         jdbcTemplate.execute(content);

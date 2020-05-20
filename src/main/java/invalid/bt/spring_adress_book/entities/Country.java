@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Country {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
