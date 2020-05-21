@@ -1,4 +1,4 @@
-package invalid.bt.spring_adress_book;
+package invalid.bt.spring_address_book;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

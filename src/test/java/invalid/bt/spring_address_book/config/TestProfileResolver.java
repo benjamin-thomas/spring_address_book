@@ -1,4 +1,4 @@
-package invalid.bt.spring_adress_book.config;
+package invalid.bt.spring_address_book.config;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.test.context.ActiveProfilesResolver;

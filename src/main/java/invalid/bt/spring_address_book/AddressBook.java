@@ -1,4 +1,4 @@
-package invalid.bt.spring_adress_book;
+package invalid.bt.spring_address_book;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

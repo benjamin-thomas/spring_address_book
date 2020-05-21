@@ -1,6 +1,6 @@
-package invalid.bt.spring_adress_book.repositories;
+package invalid.bt.spring_address_book.repositories;
 
-import invalid.bt.spring_adress_book.entities.Country;
+import invalid.bt.spring_address_book.entities.Country;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

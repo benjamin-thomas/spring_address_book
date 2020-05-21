@@ -1,4 +1,4 @@
-package invalid.bt.spring_adress_book.utils;
+package invalid.bt.spring_address_book.utils;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 

@@ -1,9 +1,9 @@
-package invalid.bt.spring_adress_book.repositories;
+package invalid.bt.spring_address_book.repositories;
 
-import invalid.bt.spring_adress_book.config.TestProfileResolver;
-import invalid.bt.spring_adress_book.entities.City;
-import invalid.bt.spring_adress_book.entities.Country;
-import invalid.bt.spring_adress_book.utils.DataLoader;
+import invalid.bt.spring_address_book.config.TestProfileResolver;
+import invalid.bt.spring_address_book.entities.City;
+import invalid.bt.spring_address_book.entities.Country;
+import invalid.bt.spring_address_book.utils.DataLoader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

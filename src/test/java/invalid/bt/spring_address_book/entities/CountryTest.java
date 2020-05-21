@@ -1,4 +1,4 @@
-package invalid.bt.spring_adress_book.entities;
+package invalid.bt.spring_address_book.entities;
 
 import org.junit.jupiter.api.Test;
 
