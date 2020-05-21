@@ -9,8 +9,11 @@ case $1 in
   app)
     DATABASE_URL=$DATABASE_URL_DEVELOPMENT_LOCAL
     ;;
+  postgres)
+    DATABASE_URL=$POSTGRES_DATABASE_URL_LOCAL
+    ;;
   *)
-    echo "Must give one of: [admin, app]"
+    echo "Must give one of: [admin, app, postgres]"
     exit 1
     ;;
 esac

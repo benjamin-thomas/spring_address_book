@@ -77,6 +77,19 @@ psql(%Q[CREATE ROLE #{ENV.fetch('ADMIN_USER')} WITH CREATEROLE CREATEDB LOGIN EN
 
 psql("CREATE ROLE #{ENV.fetch('APP_USER')} LOGIN ENCRYPTED PASSWORD '#{ENV.fetch('APP_PASSWORD')}' NOINHERIT; -- The app's password")
 
+admin_user = ENV.fetch('ADMIN_USER')
+app_user = ENV.fetch('APP_USER')
+
+# When admin_user creates a table, app_user is granted acces to it
+# FOR ROLE is very important here, otherwise I would be applying rules related to postgres user, not flyway
+['DEV_DBNAME', 'TEST_DBNAME'].each do |env_var|
+  dbname = ENV.fetch(env_var)
+  psql("ALTER DEFAULT PRIVILEGES FOR ROLE #{admin_user} IN SCHEMA public
+          GRANT SELECT, INSERT, UPDATE, DELETE
+          ON TABLES TO #{app_user};",
+          dbname)
+end
+
 puts("Container should be started now, it's time to load flyway scripts".yellow.bold)
 puts(`docker-compose ps`)
 
