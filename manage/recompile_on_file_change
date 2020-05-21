@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+# Intellij is annoyingly not very useful with devtools
+# Use in combination with:
+#  ./mvnw spring-boot:run
+
+def change_digest
+  # Quick and dirty
+  `git d | sha1sum`
+end
+
+last_digest = change_digest
+loop do
+  curr_digest = change_digest
+  if curr_digest != last_digest
+    last_digest = curr_digest
+    system('./mvnw compile')
+  end
+  sleep 1
+end
