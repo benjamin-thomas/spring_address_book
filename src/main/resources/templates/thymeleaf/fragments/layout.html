@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello</title>
+
+        <link rel="stylesheet" href="/main.css">
+    </head>
+
+    <body>
+        <div th:replace="thymeleaf/fragments/header :: header"></div>
+
+        <div layout:fragment="content"></div>
+
+        <div th:replace="thymeleaf/fragments/footer :: footer"></div>
+    </body>
+
+</html>

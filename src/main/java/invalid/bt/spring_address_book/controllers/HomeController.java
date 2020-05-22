@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping("/thymeleaf")
     public String index(
             @RequestParam(defaultValue = "John Doe") String name,
             Model model) {

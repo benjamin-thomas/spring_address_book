@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" layout:decorate="~{thymeleaf/fragments/layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Front page</title>
-    <link rel="stylesheet" href="/main.css">
+    <title>hello title override</title>
 </head>
+
 <body>
 
-<h1 th:text="'Hello, how are you ' + ${name} + '!'">Hello user</h1>
+    <div layout:fragment="content">
+        <h1 th:text="'Hello, how are you ' + ${name} + '!'">Hello user</h1>
+    </div>
 
 </body>
+
 </html>
