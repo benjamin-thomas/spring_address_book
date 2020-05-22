@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Front page</title>
-    <link rel="stylesheet" href="/main.css">
-</head>
-<body>
+<#import "layouts/main.ftlh" as layout>
 
-<h1>Hello, how are you + ${name}!</h1>
+<@layout.main title="Greetings ${name}!">
 
-</body>
-</html>
+<h1>Hello, how are you ${name}!</h1>
+
+</@layout.main>
+
+
