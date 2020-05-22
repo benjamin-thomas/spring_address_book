@@ -13,7 +13,7 @@ public class HomeController {
             @RequestParam(defaultValue = "John Doe") String name,
             Model model) {
         model.addAttribute("name", name);
-        return "index";
+        return "thymeleaf/index";
     }
 
     @GetMapping("/freemarker")
@@ -21,6 +21,6 @@ public class HomeController {
             @RequestParam(defaultValue = "John Doe") String name,
             Model model) {
         model.addAttribute("name", name);
-        return "index2";
+        return "freemarker/index";
     }
 }
