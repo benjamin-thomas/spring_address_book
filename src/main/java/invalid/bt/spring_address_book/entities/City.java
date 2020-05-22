@@ -12,9 +12,13 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Getter
     private long countryId;
+
     @Getter
     private String name;
+
     @Getter
     private String zipCode;
 
