@@ -15,4 +15,12 @@ public class HomeController {
         model.addAttribute("name", name);
         return "index";
     }
+
+    @GetMapping("/freemarker")
+    public String index2(
+            @RequestParam(defaultValue = "John Doe") String name,
+            Model model) {
+        model.addAttribute("name", name);
+        return "index2";
+    }
 }

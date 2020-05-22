@@ -77,7 +77,7 @@ class CountryRepositoryTest {
 
     @Test
     void injectedComponentsAreNotNull() {
-//        assertThat(dataSource).isNotNull();
+        assertThat(dataSource).isNotNull();
         assertThat(jdbcTemplate).isNotNull();
         assertThat(entityManager).isNotNull();
         assertThat(countryRepository).isNotNull();
