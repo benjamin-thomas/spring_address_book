@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
+// Per: https://spring.io/guides/gs/validating-form-input/
 @Controller
 public class CityController {
 

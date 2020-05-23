@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" layout:decorate="~{thymeleaf/fragments/layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>hello title override</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <h1>City was successfully submitted !</h1>
+
+        <!--/*@thymesVar id="city" type="invalid.bt.spring_address_book.entities.City"*/-->
+        <p th:text="'City name is: ' +  ${city}">City name</p>
+    </div>
+
+</body>
+
+</html>

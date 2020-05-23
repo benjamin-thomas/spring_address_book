@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" layout:decorate="~{thymeleaf/fragments/layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>hello title override</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <form action="#" th:action="@{/city}" th:object="${city}" method="post">
+        <table>
+
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            </tr>
+
+            <tr>
+                <td>ZipCode:</td>
+                <td><input type="text" th:field="*{zipCode}"/></td>
+                <td th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">ZipCode Error</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="Submit form"><br>
+                    <input type="reset" value="Reset"><br>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+</body>
+
+</html>
