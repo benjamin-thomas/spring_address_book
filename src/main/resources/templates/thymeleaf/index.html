@@ -8,9 +8,17 @@
 
 <body>
 
-    <div layout:fragment="content">
-        <h1 th:text="'Hello, how are you ' + ${name} + '!'">Hello user</h1>
-    </div>
+<div layout:fragment="content">
+    <h1 th:text="'Hello, how are you ' + ${name} + '!'">Hello user</h1>
+
+    <ul>
+        <li><a href="/thymeleaf">Thymeleaf index (this page)</a></li>
+        <li><a href="/freemarker">Freemarker index</a></li>
+        <li><a href="/cities/new">New city (thymleaf, use form object)</a></li>
+        <li><a href="/city/new">New city (thymeleaf, bind entity City)</a></li>
+    </ul>
+
+</div>
 
 </body>
 
