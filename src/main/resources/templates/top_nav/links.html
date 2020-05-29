@@ -1,10 +1,15 @@
-<ul th:fragment="top_nav" xmlns:th="http://www.w3.org/1999/xhtml">
-    <li><a href="/thymeleaf">Thymeleaf index (at /)</a></li>
-    <li><a href="/freemarker">Freemarker index</a></li>
+<div th:fragment="top_nav" xmlns:th="http://www.w3.org/1999/xhtml">
+    <ul>
 
-    <li><a href="/cities/new">New city (thymleaf, use form object)</a></li>
-    <li><a href="/city/new">New city (thymeleaf, bind entity City)</a></li>
-    <li><a href="/freemarker/city/new">New city (freemarker)</a></li>
+        <li><a href="/thymeleaf">Thymeleaf index (at /)</a></li>
+        <li><a href="/freemarker">Freemarker index</a></li>
+    </ul>
 
-    <li>hello</li>
-</ul>
+    <ul>
+
+        <li><a href="/cities/new">New city (thymleaf, use form object)</a></li>
+        <li><a href="/city/new">New city (thymeleaf, bind entity City)</a></li>
+        <li><a href="/freemarker/city/new">New city (freemarker)</a></li>
+    </ul>
+
+</div>
