@@ -7,6 +7,9 @@
         <title>${title}</title>
 
         <link rel="stylesheet" href="/main.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="/main.js"></script>
     </head>
 
     <body>

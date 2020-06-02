@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @ToString
 public class City {
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
